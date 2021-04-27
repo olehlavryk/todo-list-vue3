@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo list Vue.js v3</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+    <div id="app">
+        <div class="header">
+            <div class="container">
+                <div class="logo">Todo List</div>
+                <div class="form">
+                    <input type="text" :value="valueInput" @input="handlyInput" @keypress.enter="addTask">
+                    <button class="btn" @click="addTask">Add new task</button>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h2>
+                <span>To Do</span>
+                <span class="mask-num">{{needDoList.length}}</span>
+            </h2>
+            <ul class="mask-list" v-if="needDoList.length">
+                <li v-for="(mask, index) in needDoList" :key="mask.id">
+                    <div>
+                        <input type="checkbox" @change="doCheck(index, 'need')">
+                        <span>{{mask.title}}</span>
+                    </div>
+                    <button class="btn-remove" @click="removeMask(index, 'need')">Remove</button>
+                </li>
+            </ul>
+            <div class="no-task" v-else>No todo tasks.</div>
+
+            <h2>
+                <span>Done</span>
+                <span class="mask-num">{{compliteList.length}}</span>
+            </h2>
+            <ul class="mask-list complete-list" v-if="compliteList.length">
+                <li v-for="(mask, index) in compliteList" :key="mask.id">
+                    <div>
+                        <input type="checkbox" @change="doCheck(index, 'complite')" checked>
+                        <span>{{mask.title}}</span>
+                    </div>
+                    <button class="btn-remove" @click="removeMask(index, 'complite')">Remove</button>
+                </li>
+            </ul>
+            <div class="no-task" v-else>No complited tasks.</div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="./js/app.js"></script>
+</body>
+
+</html>
